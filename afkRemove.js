@@ -1,5 +1,5 @@
 var bot = { 
-    afkLimit: 60, //in minutes
+    afkLimit: 60, //60 minutes
     users: {},
     getTime: function (ms) {
         ms = Math.floor(ms / 60000);
@@ -23,7 +23,7 @@ var bot = {
                 API.sendChat('@' + index[1].username + ' AFK Time - ' + bot.getTime(now - bot.users[index[1].id].afkTime) + ' | Last warning. Chat in 2 songs or I will remove you');
                 bot.users[index[0].id].warns.warn2 = true;
             };
-            if (now - bot.users[index[2].id].afkTime >= bot.afkLimit * 60000 && bot.users[index[2].id].warns.warn2) {
+            if (now - bot.users[index[2].id].afkTime >= bot.afkLimit * 60000 && bot.users[index[2].id].warns.warn2 && !bot.users[index[2].id].warns.removed) {
                 API.sendChat('@' + index[2].username + ' You were ' + Math.round((now - bot.users[index[2].id].afkTime) / 60000) + ' minutes past AFK limit (' + bot.afkLimit + 'm) | Chat every ' + bot.afkLimit + ' minutes while in the waitlist.');
                 API.moderateRemoveDJ(index[2].id);
             };
@@ -35,7 +35,8 @@ var bot = {
         this.joinTime = Date.now();
         this.warns = {
             warn1: false,
-            warn2: false
+            warn2: false,
+            removed: false
         };
     },
     eventWaitlistUpdate: function() {
