@@ -13,13 +13,13 @@ var bot = {
         return r
     },
     afkRemover: function () {
-        var waitList = API.getWaitList(), now = Date.now(), index = [waitList[6], waitList[4], waitList[2]];
+        var waitList = API.getWaitList(), now = Date.now(), index = [waitList[4], waitList[2], waitList[0]];
         if (waitList.length > 4) {
             if (now - bot.users[index[0].id].afkTime >= bot.afkLimit * 60000 && !bot.users[index[0].id].warns.warn1) {
                 API.sendChat('@' + index[0].username + ' AFK Time - ' + bot.getTime(now - bot.users[index[0].id].afkTime) + ' | Chat in 5 songs or I will remove you');
                 bot.users[index[0].id].warns.warn1 = true;
             };
-            if (now - bot.users[index[1].id].afkTime >= bot.afkLimit * 60000 && !bot.users[index[1].id].warns.warn2 && bot.users[index[0].id].warns.warn1) {
+            if (now - bot.users[index[1].id].afkTime >= bot.afkLimit * 60000 && !bot.users[index[1].id].warns.warn2 && bot.users[index[1].id].warns.warn1) {
                 API.sendChat('@' + index[1].username + ' AFK Time - ' + bot.getTime(now - bot.users[index[1].id].afkTime) + ' | Last warning. Chat in 2 songs or I will remove you');
                 bot.users[index[0].id].warns.warn2 = true;
             };
