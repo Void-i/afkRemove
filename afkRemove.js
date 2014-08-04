@@ -49,7 +49,7 @@ var bot = {
         delete bot.users[obj.id];
     },
     eventChat: function(obj) {
-        bot.users[obj.fromID].afkTime = Date.now();
+        bot.users[obj.fid].afkTime = Date.now();
     }
 };
 
